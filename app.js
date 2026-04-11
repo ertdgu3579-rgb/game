@@ -61,8 +61,8 @@ class TargetDummy {
     takeHit() {
         // 맞는 순간에 진동 시작 (+빨갛게 깜빡임)
         if (this.shakeFrames <= 0) {
-            this.shakeFrames = 15; // 15프레임 동안 진동
-            this.mesh.material.color.setHex(0xFF0000); // 핏빛 빨간색 번쩍!
+            this.shakeFrames = 20; 
+            this.mesh.material.color.setHex(0xFF0000); 
         }
     }
 
@@ -71,9 +71,10 @@ class TargetDummy {
             this.shakeFrames--;
             
             // X, Z 방향으로 무작위 좌표 오프셋을 생성해 "부들부들" 떨리게 함 (파이프라인: 진폭 축소)
-            const intensity = this.shakeFrames / 15;
-            const offsetX = (Math.random() - 0.5) * 0.8 * intensity;
-            const offsetZ = (Math.random() - 0.5) * 0.8 * intensity;
+            const intensity = this.shakeFrames / 25;
+            // 더 강하게 흔들리도록 진폭 증가 (0.8 -> 2.0)
+            const offsetX = (Math.random() - 0.5) * 2.0 * intensity;
+            const offsetZ = (Math.random() - 0.5) * 2.0 * intensity;
             
             this.mesh.position.set(
                 this.basePosition.x + offsetX,
@@ -199,13 +200,13 @@ class Player {
         // [2] O키 공격 준비(오발 방지: 땅에 있을때, 점프 중이 아닐때)
         if (this.input.isPressed('o') && this.isOnGround && !this.isPreparingAttack && !this.isPreparingJump) {
             this.isPreparingAttack = true;
-            this.attackSquashFrames = 10; 
+            this.attackSquashFrames = 6; // 선딜레이(준비시간)을 10 -> 6으로 줄여 더 빠릿한 공격 속도
         }
 
         if (this.isPreparingAttack) {
             if (this.attackSquashFrames > 0) {
                 this.attackSquashFrames--;
-                const progress = this.attackSquashFrames / 10;
+                const progress = this.attackSquashFrames / 6;
                 
                 // 점프 준비보다 공격 준비는 좀 더 과장되게 눌림을 준다
                 this.mesh.scale.y = 0.5 + 0.5 * progress; 
@@ -213,13 +214,13 @@ class Player {
                 this.mesh.scale.z = 1.5 - 0.5 * progress;
                 this.mesh.position.y = this.groundLevel * this.mesh.scale.y; 
             } else {
-                // 발사 - (돌진 스피드는 1.5배)
+                // 발사 - (돌진 속도감을 좀 더 올림 1.5 -> 1.8배)
                 this.isPreparingAttack = false;
                 this.isOnGround = false;
                 this.isAttacking = true;
                 this.hasHitThisAttack = false; // 적 타격 시도용 변수 리셋
                 
-                const dashSpeed = this.speed * 1.5;
+                const dashSpeed = this.speed * 1.8;
                 
                 // 이전 facingAngle을 바탕으로 삼각함수로 밀어냄
                 this.attackVelocityX = Math.sin(this.facingAngle) * dashSpeed;
@@ -276,6 +277,8 @@ class Player {
  */
 class Game {
     constructor() {
+        // 화면 전역 정지 타이머 (밀리초 단위 기록)
+        this.globalHitStopEnd = 0;
         // 카메라 진동을 위한 베이스 좌표
         this.cameraShakeTimer = 0;
         this.baseCameraPos = new THREE.Vector3(0, 10, 15);
@@ -378,14 +381,17 @@ class Game {
                 // 이번 공격의 첫 명중일 때만 타격 이펙트 발생
                 if (!this.player.hasHitThisAttack) {
                     this.dummy.takeHit(); 
-                    this.cameraShakeTimer = 10; 
+                    this.cameraShakeTimer = 22; // 카메라 흔들림을 더 날카롭고 묵직하게
                     this.player.hasHitThisAttack = true; 
+                    
+                    // 더 빠르고 경쾌한 타격감을 위해 멈춤 시간을 120ms(0.12초)로 단축 
+                    this.globalHitStopEnd = performance.now() + 120;
                 }
 
-                // 겹쳤으니 부딪힌 것이므로 돌진(수평) 속도를 즉시 잃어버리게 함
-                // 수평으로 못 가고 밑의 중력 작용부 덕분에 바닥으로 뚝 떨어짐
+                // 타격 시 공중으로 천천히 계속 올라가는 현상을 차단하고, 완전 정지 후 툭 떨어지도록 모든 속도를 0으로 셋팅
                 this.player.attackVelocityX = 0;
                 this.player.attackVelocityZ = 0;
+                this.player.velocityY = 0; // 수직 속도까지 지워서 오르막 궤도 강제 캔슬
             }
         }
     }
@@ -401,6 +407,13 @@ class Game {
     animate() {
         requestAnimationFrame(this.animate);
         
+        // 화면 전역 정지(히트스탑) 모드일 경우: 카메라 진동만 처리하고 모든 게임 로직(플레이어/상자 이동)을 동결!
+        if (performance.now() < this.globalHitStopEnd) {
+            this.updateCamera();
+            this.renderer.render(this.scene, this.camera);
+            return;
+        }
+
         // 각각 객체 프레임 업데이트
         this.player.update();
         this.dummy.update();
