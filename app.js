@@ -40,6 +40,69 @@ class InputManager {
 }
 
 /**
+ * 1.5. SoundManager: Web Audio API 기반 효과음 생성기
+ */
+class SoundManager {
+    constructor() {
+        this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    playDashSound() {
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(400, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(100, this.ctx.currentTime + 0.2);
+        
+        gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
+        
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.2);
+    }
+
+    playHitSound() {
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(150, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(40, this.ctx.currentTime + 0.1);
+        
+        gain.gain.setValueAtTime(0.5, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.15);
+        
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.15);
+    }
+
+    playJumpSound() {
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(300, this.ctx.currentTime);
+        osc.frequency.linearRampToValueAtTime(600, this.ctx.currentTime + 0.1);
+        
+        gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
+        
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.2);
+    }
+}
+
+/**
  * 2. TargetDummy (샌드백 객체)
  */
 class TargetDummy {
@@ -95,8 +158,9 @@ class TargetDummy {
  * 3. Player: 3D 캐릭터 및 공격 점프 모델링
  */
 class Player {
-    constructor(scene, inputManager) {
+    constructor(scene, inputManager, soundManager) {
         this.input = inputManager;
+        this.soundManager = soundManager;
         this.speed = 0.2;
         
         // 점프를 위한 속성
@@ -220,6 +284,8 @@ class Player {
                 this.isAttacking = true;
                 this.hasHitThisAttack = false; // 적 타격 시도용 변수 리셋
                 
+                if (this.soundManager) this.soundManager.playDashSound();
+                
                 const dashSpeed = this.speed * 1.8;
                 
                 // 이전 facingAngle을 바탕으로 삼각함수로 밀어냄
@@ -255,6 +321,8 @@ class Player {
                 this.isOnGround = false;
                 this.mesh.scale.set(1, 1, 1);
                 this.mesh.position.y = this.groundLevel;
+                
+                if (this.soundManager) this.soundManager.playJumpSound();
             }
         }
 
@@ -279,6 +347,11 @@ class Game {
     constructor() {
         // 화면 전역 정지 타이머 (밀리초 단위 기록)
         this.globalHitStopEnd = 0;
+        // 줌 인 상태 유지 타이머
+        this.globalZoomEnd = 0;
+        // 줌인 연출용 FOV(시야각) 정보
+        this.baseFov = 75;
+        this.targetFov = 75;
         // 카메라 진동을 위한 베이스 좌표
         this.cameraShakeTimer = 0;
         this.baseCameraPos = new THREE.Vector3(0, 10, 15);
@@ -287,8 +360,9 @@ class Game {
         this.initLights();
         this.initEnvironment();
 
+        this.soundManager = new SoundManager();
         this.inputManager = new InputManager();
-        this.player = new Player(this.scene, this.inputManager);
+        this.player = new Player(this.scene, this.inputManager, this.soundManager);
         this.dummy = new TargetDummy(this.scene); // 맵에 샌드백스폰!
 
         this.handleResize();
@@ -300,7 +374,8 @@ class Game {
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color(0x87CEEB); 
 
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        // this.baseFov 를 기반으로 카메라 생성
+        this.camera = new THREE.PerspectiveCamera(this.baseFov, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.camera.position.copy(this.baseCameraPos);
         this.camera.lookAt(0, 0, 0);
 
@@ -347,6 +422,18 @@ class Game {
 
         // 베이스 좌표에 쉐이크(진동) 덧셈
         this.camera.position.copy(this.baseCameraPos).add(shakeOffset);
+
+        // [줌인(FOV) 부드러운 전환 연산]
+        // 줌인 시간이 끝났다면 targetFov를 다시 원상복구시킴
+        if (performance.now() >= this.globalZoomEnd && this.targetFov !== this.baseFov) {
+            this.targetFov = this.baseFov;
+        }
+
+        // 현재 카메라 FOV가 목표 FOV랑 다르면 부드럽게(Lerp) 이동
+        if (Math.abs(this.camera.fov - this.targetFov) > 0.1) {
+            this.camera.fov += (this.targetFov - this.camera.fov) * 0.08; // 줌 인/아웃 속도 감속으로 여운 추가
+            this.camera.updateProjectionMatrix();
+        }
     }
 
     checkCollisions() {
@@ -380,12 +467,20 @@ class Game {
             if (this.player.isAttacking) {
                 // 이번 공격의 첫 명중일 때만 타격 이펙트 발생
                 if (!this.player.hasHitThisAttack) {
+                    if (this.soundManager) this.soundManager.playHitSound();
                     this.dummy.takeHit(); 
                     this.cameraShakeTimer = 22; // 카메라 흔들림을 더 날카롭고 묵직하게
                     this.player.hasHitThisAttack = true; 
                     
-                    // 더 빠르고 경쾌한 타격감을 위해 멈춤 시간을 120ms(0.12초)로 단축 
-                    this.globalHitStopEnd = performance.now() + 120;
+                    // 순간적인 타격 임팩트를 위해 줌인 강제로 확 땡김 (너무 가깝지 않게 75 -> 65)
+                    this.targetFov = 65;
+                    this.camera.fov = 65; // 즉시 땡겨지도록 다이렉트 할당
+                    this.camera.updateProjectionMatrix();
+
+                    // 액션감을 위해 멈춤(히트스탑) 시간 연장 (120 -> 250)
+                    this.globalHitStopEnd = performance.now() + 250;
+                    // 줌 인 유지 시간 분리 및 연장 (450ms)
+                    this.globalZoomEnd = performance.now() + 450;
                 }
 
                 // 타격 시 공중으로 천천히 계속 올라가는 현상을 차단하고, 완전 정지 후 툭 떨어지도록 모든 속도를 0으로 셋팅
