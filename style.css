@@ -8,141 +8,361 @@ html,
 body {
     width: 100%;
     height: 100%;
-
-    overflow-x: hidden;
+    overflow: hidden;
+    background-color: #ffffff;
 }
-
-/* 전체 앱 */
 
 #app {
     position: relative;
-
     width: 100vw;
     height: 100vh;
-
     overflow: hidden;
 }
 
-/* 배경 이미지 */
+/* 모든 페이지 공통 제어 */
+.page {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: none;
+}
 
-#screen {
+/* 활성화 상태 강제 처리 */
+.page.active {
+    display: block;
+    z-index: 5;
+}
+
+.screen {
     width: 100%;
     height: 100%;
-
     object-fit: contain;
-
     display: block;
 }
 
-/* 공통 버튼 */
+#hospitalPage .screen {
+    object-fit: cover;
+}
 
 .btn {
     position: absolute;
-
     background: rgba(255, 0, 0, 0.2);
     border: 2px solid red;
-
     cursor: pointer;
+    z-index: 10;
 }
 
-/* ---------------- */
-/* 첫 줄 */
-/* ---------------- */
-
-/* 정형외과 */
-.ortho {
+/* 1. 메인 페이지 버튼 */
+#mainPage .ortho {
     left: 5%;
     top: 66%;
-
     width: 17%;
     height: 7%;
 }
 
-/* 영유아검진 */
-.baby {
+#mainPage .baby {
     left: 29%;
     top: 66%;
-
     width: 17%;
     height: 7%;
 }
 
-/* 소아과 */
-.child {
+#mainPage .child {
     left: 53%;
     top: 66%;
-
     width: 17%;
     height: 7%;
 }
 
-/* 이비인후과 */
-.ent {
+#mainPage .ent {
     left: 77%;
     top: 66%;
-
     width: 17%;
     height: 7%;
 }
 
-/* ---------------- */
-/* 둘째 줄 */
-/* ---------------- */
-
-/* 내과 */
-.internal {
+#mainPage .internal {
     left: 5%;
     top: 76%;
-
     width: 17%;
     height: 7%;
 }
 
-/* 산부인과 */
-.women {
+#mainPage .women {
     left: 29%;
     top: 76%;
-
     width: 17%;
     height: 7%;
 }
 
-/* 정신과 */
-.mental {
+#mainPage .mental {
     left: 53%;
     top: 76%;
-
     width: 17%;
     height: 7%;
 }
 
-/* 피부과 */
-.skin {
+#mainPage .skin {
     left: 77%;
     top: 76%;
-
     width: 17%;
     height: 7%;
 }
 
-/* ---------------- */
-/* 하단 버튼 */
-/* ---------------- */
-
-/* 진료기록 */
-.record {
+#mainPage .record {
     left: 5%;
     top: 86%;
-
     width: 17%;
     height: 7%;
 }
 
-/* 마이페이지 */
-.mypage {
+#mainPage .mypage {
     left: 29%;
     top: 86%;
-
     width: 17%;
     height: 7%;
+}
+
+/* 2. 병원 페이지 버튼 */
+#hospitalPage .ortho {
+    left: 0%;
+    top: 40%;
+    width: 100%;
+    height: 15%;
+}
+
+#hospitalPage .baby {
+    left: 0%;
+    top: 55%;
+    width: 100%;
+    height: 15%;
+}
+
+#hospitalPage .child {
+    left: 0%;
+    top: 70%;
+    width: 100%;
+    height: 15%;
+}
+
+#hospitalPage .ent {
+    left: 0%;
+    top: 85%;
+    width: 100%;
+    height: 15%;
+}
+
+/* 3. 정보 페이지 버튼 */
+#informationPage .res {
+    left: 10%;
+    top: 80%;
+    width: 80%;
+    height: 10%;
+}
+
+/* 4. 날짜 페이지 인풋 관련 */
+#dateInput1,
+#dateInput2,
+#dateInput3 {
+    position: absolute;
+    height: 103px;
+    padding: 10px;
+    background: #f2f3f7;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 35px;
+    outline: none;
+    text-align: center;
+    font-size: 55px;
+    z-index: 999;
+}
+
+#dateInput1 {
+    color: rgb(148, 120, 118);
+    left: 11%;
+    top: 29%;
+    width: 280px;
+}
+
+#dateInput2 {
+    color: #947876;
+    left: 45%;
+    top: 29%;
+    width: 180px;
+}
+
+#dateInput3 {
+    color: #947876;
+    left: 70%;
+    top: 29%;
+    width: 180px;
+}
+
+/* 5. 타임 페이지 버튼 */
+#timePage .time {
+    left: 10%;
+    top: 29%;
+    width: 23%;
+    height: 7%;
+}
+
+#timePage .time2 {
+    left: 36%;
+    top: 29%;
+    width: 23%;
+    height: 7%;
+}
+
+#timePage .time3 {
+    left: 62%;
+    top: 29%;
+    width: 23%;
+    height: 7%;
+}
+
+#timePage .time4 {
+    left: 10%;
+    top: 37%;
+    width: 23%;
+    height: 7%;
+}
+
+#timePage .time5 {
+    left: 10%;
+    top: 46%;
+    width: 23%;
+    height: 7%;
+}
+
+#timePage .time6 {
+    left: 36%;
+    top: 46%;
+    width: 23%;
+    height: 7%;
+}
+
+#timePage .time7 {
+    left: 62%;
+    top: 46%;
+    width: 23%;
+    height: 7%;
+}
+
+#timePage .time8 {
+    left: 10%;
+    top: 54%;
+    width: 23%;
+    height: 7%;
+}
+
+#timePage .time9 {
+    left: 36%;
+    top: 54%;
+    width: 23%;
+    height: 7%;
+}
+
+#timePage .time10 {
+    left: 62%;
+    top: 54%;
+    width: 23%;
+    height: 7%;
+}
+
+/* 6. 인벤토리 페이지 버튼 */
+#inventoryPage .inventory {
+    left: 10%;
+    top: 29%;
+    width: 23%;
+    height: 7%;
+}
+
+#inventoryPage .inventory2 {
+    left: 36%;
+    top: 29%;
+    width: 23%;
+    height: 7%;
+}
+
+#inventoryPage .inventory3 {
+    left: 62%;
+    top: 29%;
+    width: 23%;
+    height: 7%;
+}
+
+#inventoryPage .inventory4 {
+    left: 10%;
+    top: 37%;
+    width: 23%;
+    height: 7%;
+}
+
+#inventoryPage .inventory5 {
+    left: 10%;
+    top: 45%;
+    width: 23%;
+    height: 7%;
+}
+
+#inventoryPage .inventory6 {
+    left: 36%;
+    top: 37%;
+    width: 23%;
+    height: 7%;
+}
+
+#inventoryPage .inventory7 {
+    left: 62%;
+    top: 37%;
+    width: 23%;
+    height: 7%;
+}
+
+/* 7. 입력 페이지 요소 */
+#inputPage #message {
+    position: absolute;
+    left: 10%;
+    top: 29%;
+    width: 80%;
+    height: 30%;
+    padding: 13px;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    background: #f2f3f7;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    outline: none;
+    resize: none;
+    z-index: 999;
+}
+
+#inputPage #complete {
+    position: absolute;
+    left: 8%;
+    top: 65%;
+    width: 85%;
+    height: 10%;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+#inputPage .complete {
+    left: 8%;
+    top: 85%;
+    width: 85%;
+    height: 10%;
+}
+
+/* ========================================== */
+/* 8. 지도 페이지 버튼 배치 격리 (요청 디자인 이식) */
+/* ========================================== */
+/* 💥 간섭 차단을 위해 클래스명을 명확하게 스코프로 묶어 반영함 */
+#mapPage .map-complete {
+    left: 8%;
+    top: 85%;
+    width: 85%;
+    height: 10%;
 }

@@ -1,13 +1,35 @@
 const buttons = document.querySelectorAll(".btn");
 
-buttons.forEach((button) => {
+const pages = {
+    mainPage: document.getElementById("mainPage"),
+    hospitalPage: document.getElementById("hospitalPage"),
+    informationPage: document.getElementById("informationPage"),
+    dayPage: document.getElementById("dayPage"),
+    timePage: document.getElementById("timePage"),
+    inventoryPage: document.getElementById("inventoryPage"),
+    inputPage: document.getElementById("inputPage"),
+    mapPage: document.getElementById("mapPage")
+};
 
-    button.addEventListener("click", () => {
-
-        window.location.href = button.dataset.link; //병원 탐색 페이지로 이동
-
+function changePage(targetPageId) {
+    Object.values(pages).forEach(page => {
+        if (page && page.classList) {
+            page.classList.remove("active");
+        }
     });
 
+    if (pages[targetPageId] && pages[targetPageId].classList) {
+        pages[targetPageId].classList.add("active");
+    }
+}
+
+buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const target = btn.dataset.target;
+        if (target) {
+            changePage(target);
+        }
+    });
 });
 
 const year = document.getElementById("dateInput1");
@@ -15,38 +37,32 @@ const month = document.getElementById("dateInput2");
 const day = document.getElementById("dateInput3");
 
 function checkInput() {
-
-    if (
-        year.value.length === 4 &&
-        month.value.length === 2 &&
-        day.value.length === 2
-    ) {
-
-        window.location.href = "time.html";
-
+    if (year && month && day) {
+        if (
+            year.value.length === 4 &&
+            month.value.length === 2 &&
+            day.value.length === 2
+        ) {
+            changePage("timePage");
+        }
     }
-
 }
 
-// 숫자만 허용 + 검사
 [year, month, day].forEach((input) => {
-
-    input.addEventListener("input", () => {
-
-        input.value = input.value.replace(/[^0-9]/g, '');
-
-        checkInput();
-
-    });
-
+    if (input) {
+        input.addEventListener("input", () => {
+            input.value = input.value.replace(/[^0-9]/g, '');
+            checkInput();
+        });
+    }
 });
+
 const submitBtn = document.getElementById("complete");
 const message = document.getElementById("message");
 
-submitBtn.onclick = function () {
-
-    message.readOnly = false;
-
-    message.focus();
-
-};
+if (submitBtn && message) {
+    submitBtn.onclick = function () {
+        message.readOnly = false;
+        message.focus();
+    };
+}

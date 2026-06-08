@@ -5,51 +5,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>병원 앱</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
     <div id="app">
 
-        <!-- 배경 이미지 -->
-        <img id="screen" src="images/main.png" alt="메인화면">
+        <div id="mainPage" class="page active">
+            <img class="screen" src="images/Frame2.png" alt="메인화면">
+            <button class="btn ortho" data-target="hospitalPage"></button>
+            <button class="btn baby" data-target="hospitalPage"></button>
+            <button class="btn child" data-target="hospitalPage"></button>
+            <button class="btn ent" data-target="hospitalPage"></button>
+            <button class="btn internal" data-target="hospitalPage"></button>
+            <button class="btn women" data-target="hospitalPage"></button>
+            <button class="btn mental" data-target="hospitalPage"></button>
+            <button class="btn skin" data-target="hospitalPage"></button>
+            <button class="btn record" data-target="hospitalPage"></button>
+            <button class="btn mypage" data-target="hospitalPage"></button>
+        </div>
 
-        <!-- 정형외과 -->
-        <button class="btn ortho" data-link="hospital.html"></button>
+        <div id="hospitalPage" class="page">
+            <img class="screen" src="images/hospital.png" alt="병원선택화면">
+            <button class="btn ortho" data-target="informationPage"></button>
+            <button class="btn baby" data-target="informationPage"></button>
+            <button class="btn child" data-target="informationPage"></button>
+            <button class="btn ent" data-target="informationPage"></button>
+        </div>
 
-        <!-- 영유아검진 -->
-        <button class="btn baby" data-link="hospital.html"></button>
+        <div id="informationPage" class="page">
+            <img class="screen" src="images/information.png" alt="정보화면">
+            <button class="btn res" data-target="dayPage"></button>
+        </div>
 
-        <!-- 소아과 -->
-        <button class="btn child" data-link="hospital.html"></button>
+        <div id="dayPage" class="page">
+            <img class="screen" src="images/information.png" alt="날짜선택화면">
+            <input type="text" id="dateInput1" placeholder="2026">
+            <input type="text" id="dateInput2" placeholder="06">
+            <input type="text" id="dateInput3" placeholder="08">
+        </div>
 
-        <!-- 이비인후과 -->
-        <button class="btn ent" data-link="hospital.html"></button>
+        <div id="timePage" class="page">
+            <img class="screen" src="images/time.png" alt="시간선택화면">
+            <button class="btn time" data-target="inventoryPage"></button>
+            <button class="btn time2" data-target="inventoryPage"></button>
+            <button class="btn time3" data-target="inventoryPage"></button>
+            <button class="btn time4" data-target="inventoryPage"></button>
+            <button class="btn time5" data-target="inventoryPage"></button>
+            <button class="btn time6" data-target="inventoryPage"></button>
+            <button class="btn time7" data-target="inventoryPage"></button>
+            <button class="btn time8" data-target="inventoryPage"></button>
+            <button class="btn time9" data-target="inventoryPage"></button>
+            <button class="btn time10" data-target="inventoryPage"></button>
+        </div>
 
-        <!-- 내과 -->
-        <button class="btn internal" data-link="hospital.html"></button>
+        <div id="inventoryPage" class="page">
+            <img class="screen" src="images/time.png" alt="인벤토리화면">
+            <button class="btn inventory" data-target="inputPage"></button>
+            <button class="btn inventory2" data-target="inputPage"></button>
+            <button class="btn inventory3" data-target="inputPage"></button>
+            <button class="btn inventory4" data-target="inputPage"></button>
+            <button class="btn inventory5" data-target="inputPage"></button>
+            <button class="btn inventory6" data-target="inputPage"></button>
+            <button class="btn inventory7" data-target="inputPage"></button>
+        </div>
 
-        <!-- 산부인과 -->
-        <button class="btn women" data-link="hospital.html"></button>
+        <div id="inputPage" class="page">
+            <img class="screen" src="images/time.png" alt="입력화면">
+            <textarea id="message" readonly></textarea>
+            <button id="complete">입력</button>
+            <button class="btn complete" data-target="mapPage"></button>
+        </div>
 
-        <!-- 정신과 -->
-        <button class="btn mental" data-link="hospital.html"></button>
+        <div id="mapPage" class="page">
+            <img class="screen" src="images/map.png" alt="지도화면">
 
-        <!-- 피부과 -->
-        <button class="btn skin" data-link="hospital.html"></button>
-
-        <!-- 진료기록 -->
-        <button class="btn record" data-link="hospital.html"></button>
-
-        <!-- 마이페이지 -->
-        <button class="btn mypage" data-link="hospital.html"></button>
+            <button class="btn map-complete" data-target="mainPage"></button>
+        </div>
 
     </div>
-
     <script src="app.js"></script>
-
 </body>
 
 </html>
