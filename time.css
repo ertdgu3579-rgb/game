@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+
+    overflow-x: hidden;
+}
+
+/* 전체 앱 */
+
+#app {
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+/* 배경 이미지 */
+
+#screen {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+/* 공통 버튼 */
+
+.btn {
+    position: absolute;
+
+    background: rgba(255, 0, 0, 0.2);
+    border: 2px solid red;
+
+    cursor: pointer;
+}
+
+
+/* 시간 버튼*/
+.time {
+    left: 10%;
+    top: 29%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 시간 버튼*/
+.time2 {
+    left: 36%;
+    top: 29%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 시간 버튼*/
+.time3 {
+    left: 62%;
+    top: 29%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 시간 버튼*/
+.time4 {
+    left: 10%;
+    top: 37%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 시간 버튼*/
+.time5 {
+    left: 10%;
+    top: 46%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 시간 버튼*/
+.time6 {
+    left: 36%;
+    top: 46%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 시간 버튼*/
+.time7 {
+    left: 62%;
+    top: 46%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 시간 버튼*/
+.time8 {
+    left: 10%;
+    top: 54%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 시간 버튼*/
+.time9 {
+    left: 36%;
+    top: 54%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 시간 버튼*/
+.time10 {
+    left: 62%;
+    top: 54%;
+
+    width: 23%;
+    height: 7%;
+}

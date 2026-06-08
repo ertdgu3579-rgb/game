@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+
+    overflow-x: hidden;
+}
+
+/* 전체 앱 */
+
+#app {
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+/* 배경 이미지 */
+
+#screen {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+/* 공통 버튼 */
+
+.btn {
+    position: absolute;
+
+    background: rgba(255, 0, 0, 0.2);
+    border: 2px solid red;
+
+    cursor: pointer;
+}
+
+
+/* 정형외과 */
+.ortho {
+    left: 0%;
+    top: 40%;
+
+    width: 100%;
+    height: 15%;
+}
+
+/* 영유아검진 */
+.baby {
+    left: 0%;
+    top: 55%;
+
+    width: 100%;
+    height: 15%;
+}
+
+/* 소아과 */
+.child {
+    left: 0%;
+    top: 70%;
+
+    width: 100%;
+    height: 15%;
+}
+
+/* 이비인후과 */
+.ent {
+    left: 0%;
+    top: 85%;
+
+    width: 100%;
+    height: 15%;
+}

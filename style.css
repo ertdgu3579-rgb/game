@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+
+    overflow-x: hidden;
+}
+
+/* 전체 앱 */
+
+#app {
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+/* 배경 이미지 */
+
+#screen {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+/* 공통 버튼 */
+
+.btn {
+    position: absolute;
+
+    background: rgba(255, 0, 0, 0.2);
+    border: 2px solid red;
+
+    cursor: pointer;
+}
+
+/* ---------------- */
+/* 첫 줄 */
+/* ---------------- */
+
+/* 정형외과 */
+.ortho {
+    left: 5%;
+    top: 66%;
+
+    width: 17%;
+    height: 7%;
+}
+
+/* 영유아검진 */
+.baby {
+    left: 29%;
+    top: 66%;
+
+    width: 17%;
+    height: 7%;
+}
+
+/* 소아과 */
+.child {
+    left: 53%;
+    top: 66%;
+
+    width: 17%;
+    height: 7%;
+}
+
+/* 이비인후과 */
+.ent {
+    left: 77%;
+    top: 66%;
+
+    width: 17%;
+    height: 7%;
+}
+
+/* ---------------- */
+/* 둘째 줄 */
+/* ---------------- */
+
+/* 내과 */
+.internal {
+    left: 5%;
+    top: 76%;
+
+    width: 17%;
+    height: 7%;
+}
+
+/* 산부인과 */
+.women {
+    left: 29%;
+    top: 76%;
+
+    width: 17%;
+    height: 7%;
+}
+
+/* 정신과 */
+.mental {
+    left: 53%;
+    top: 76%;
+
+    width: 17%;
+    height: 7%;
+}
+
+/* 피부과 */
+.skin {
+    left: 77%;
+    top: 76%;
+
+    width: 17%;
+    height: 7%;
+}
+
+/* ---------------- */
+/* 하단 버튼 */
+/* ---------------- */
+
+/* 진료기록 */
+.record {
+    left: 5%;
+    top: 86%;
+
+    width: 17%;
+    height: 7%;
+}
+
+/* 마이페이지 */
+.mypage {
+    left: 29%;
+    top: 86%;
+
+    width: 17%;
+    height: 7%;
+}

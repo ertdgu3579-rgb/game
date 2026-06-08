@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+
+    overflow-x: hidden;
+}
+
+/* 전체 앱 */
+
+#app {
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+/* 배경 이미지 */
+
+#screen {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+/* 공통 버튼 */
+
+.btn {
+    position: absolute;
+
+    background: rgba(255, 0, 0, 0.2);
+    border: 2px solid red;
+
+    cursor: pointer;
+}
+
+
+/* 완료 버튼*/
+.complete {
+    left: 8%;
+    top: 85%;
+
+    width: 85%;
+    height: 10%;
+}
+
+#message {
+    position: absolute;
+
+    left: 10%;
+    top: 29%;
+
+    width: 80%;
+    height: 400px;
+
+    padding: 13px;
+
+    font-size: 40px;
+
+    color: rgb(0, 0, 0);
+
+    background: #f2f3f7;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+
+    border-radius: 40px;
+
+    outline: none;
+
+    resize: none;
+
+    z-index: 999;
+}
+
+#submitBtn {
+    position: absolute;
+
+    left: 8%;
+    top: 65%;
+
+    width: 85%;
+    height: 10%;
+}

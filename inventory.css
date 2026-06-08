@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+
+    overflow-x: hidden;
+}
+
+/* 전체 앱 */
+
+#app {
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+/* 배경 이미지 */
+
+#screen {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+/* 공통 버튼 */
+
+.btn {
+    position: absolute;
+
+    background: rgba(255, 0, 0, 0.2);
+    border: 2px solid red;
+
+    cursor: pointer;
+}
+
+
+/* 진료 버튼*/
+.inventory {
+    left: 10%;
+    top: 29%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 진료 버튼*/
+.inventory2 {
+    left: 36%;
+    top: 29%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 진료 버튼*/
+.inventory3 {
+    left: 62%;
+    top: 29%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 진료 버튼*/
+.inventory4 {
+    left: 10%;
+    top: 37%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 진료 버튼*/
+.inventory5 {
+    left: 10%;
+    top: 45%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 진료 버튼*/
+.inventory6 {
+    left: 36%;
+    top: 37%;
+
+    width: 23%;
+    height: 7%;
+}
+
+/* 진료 버튼*/
+.inventory7 {
+    left: 62%;
+    top: 37%;
+
+    width: 23%;
+    height: 7%;
+}
