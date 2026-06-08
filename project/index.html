@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>병원 앱</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <div id="mainPage" class="page active">
+            <img class="screen" src="Frame2.png" alt="메인화면">
+            <button class="btn ortho" data-target="hospitalPage"></button>
+            <button class="btn baby" data-target="hospitalPage"></button>
+            <button class="btn child" data-target="hospitalPage"></button>
+            <button class="btn ent" data-target="hospitalPage"></button>
+            <button class="btn internal" data-target="hospitalPage"></button>
+            <button class="btn women" data-target="hospitalPage"></button>
+            <button class="btn mental" data-target="hospitalPage"></button>
+            <button class="btn skin" data-target="hospitalPage"></button>
+            <button class="btn record" data-target="hospitalPage"></button>
+            <button class="btn mypage" data-target="hospitalPage"></button>
+        </div>
+
+        <div id="hospitalPage" class="page">
+            <img class="screen" src="images/hospital.png" alt="병원선택화면">
+            <button class="btn ortho" data-target="informationPage"></button>
+            <button class="btn baby" data-target="informationPage"></button>
+            <button class="btn child" data-target="informationPage"></button>
+            <button class="btn ent" data-target="informationPage"></button>
+        </div>
+
+        <div id="informationPage" class="page">
+            <img class="screen" src="images/information.png" alt="정보화면">
+            <button class="btn res" data-target="dayPage"></button>
+        </div>
+
+        <div id="dayPage" class="page">
+            <img class="screen" src="images/information.png" alt="날짜선택화면">
+            <input type="text" id="dateInput1" placeholder="2026">
+            <input type="text" id="dateInput2" placeholder="06">
+            <input type="text" id="dateInput3" placeholder="08">
+        </div>
+
+        <div id="timePage" class="page">
+            <img class="screen" src="images/time.png" alt="시간선택화면">
+            <button class="btn time" data-target="inventoryPage"></button>
+            <button class="btn time2" data-target="inventoryPage"></button>
+            <button class="btn time3" data-target="inventoryPage"></button>
+            <button class="btn time4" data-target="inventoryPage"></button>
+            <button class="btn time5" data-target="inventoryPage"></button>
+            <button class="btn time6" data-target="inventoryPage"></button>
+            <button class="btn time7" data-target="inventoryPage"></button>
+            <button class="btn time8" data-target="inventoryPage"></button>
+            <button class="btn time9" data-target="inventoryPage"></button>
+            <button class="btn time10" data-target="inventoryPage"></button>
+        </div>
+
+        <div id="inventoryPage" class="page">
+            <img class="screen" src="images/time.png" alt="인벤토리화면">
+            <button class="btn inventory" data-target="inputPage"></button>
+            <button class="btn inventory2" data-target="inputPage"></button>
+            <button class="btn inventory3" data-target="inputPage"></button>
+            <button class="btn inventory4" data-target="inputPage"></button>
+            <button class="btn inventory5" data-target="inputPage"></button>
+            <button class="btn inventory6" data-target="inputPage"></button>
+            <button class="btn inventory7" data-target="inputPage"></button>
+        </div>
+
+        <div id="inputPage" class="page">
+            <img class="screen" src="images/time.png" alt="입력화면">
+            <textarea id="message" readonly></textarea>
+            <button id="complete">입력</button>
+            <button class="btn complete" data-target="mapPage"></button>
+        </div>
+
+        <div id="mapPage" class="page">
+            <img class="screen" src="images/map.png" alt="지도화면">
+
+            <button class="btn map-complete" data-target="mainPage"></button>
+        </div>
+
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
